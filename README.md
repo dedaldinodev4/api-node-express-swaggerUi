@@ -1,5 +1,5 @@
 
-# Instalura
+# api-node-express-swaggerUi
 
 Desenvolvimento de um restfull api, usando tecnologias como nodejs, express e typescript, apresenta como podemos ter uma api bem documentada usando o swagger-ui com express.
 configuração do ambiente com yarn workspace, incluindo ts-node-dev e typescript.
