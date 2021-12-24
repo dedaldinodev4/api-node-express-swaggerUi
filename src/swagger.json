@@ -151,7 +151,11 @@
                                     "value": {
                                         "name": "Mouse USB sem fio",
                                         "description": "Mouse USB RGB sem fio",
-                                        "price": 1200
+                                        "price": 1200,
+                                        "category": {
+                                            "name": "Eletronicos",
+                                            "description": "Produtos eletronicos"
+                                        }
                                     }
                                 }
                             }
