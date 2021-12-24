@@ -1,0 +1,553 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Ecommerce API",
+        "description": "Essa API tem como objectivo a manipulação de produtos e suas categorias e pedidos",
+        "termsOfService": "http://localhost:3000/terms",
+        "contact": {
+            "email": "dedaldino4dev@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/v1",
+            "description": "API de teste"
+        },
+
+        {
+            "url": "http://localhost:3000/v1",
+            "description": "API de produção"
+        }
+    ],
+    "paths": {
+        "/products": {
+            "post": {
+                "summary": "Cadastro de produto",
+                "description": "Essa rota será responsável por cadastrar um produto",
+                "tags": ["Products"],
+                "security": [{"bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            },
+                            "examples": {
+                                "product": {
+                                    "value": {
+                                        "name": "Router Wi-fi",
+                                        "description": "Router wi-fi 4G",
+                                        "price": 3700,
+                                        "category": {
+                                            "name": "Eletronicos",
+                                            "description": "Produtos eletronicos"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Product Already exists!"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/findByName": {
+            "get": {
+                "description": "Busca de um produto pelo nome",
+                "summary": "Busca de um produto pelo nome",
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Nome do produto para busca",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{id}": {
+            "get": {
+                "description": "Busca de um produto pelo ID",
+                "summary": "Busca de um produto pelo ID",
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Busca produto pelo ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Alterar um produto pelo ID",
+                "summary": "Alterar um produto pelo ID",
+                "tags": ["Products"],
+                "security": [{"bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nome do produto pelo ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            },
+                            "examples": {
+                                "product": {
+                                    "value": {
+                                        "name": "Mouse USB sem fio",
+                                        "description": "Mouse USB RGB sem fio",
+                                        "price": 1200
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Apaga produto pelo ID",
+                "summary": "Apaga produto pelo ID",
+                "tags": ["Products"],
+                "security": [{"bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Busca produto pelo ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        
+        "/categories": {
+            "post": {
+                "summary": "Cadastro de Categoria",
+                "description": "Essa rota será responsável por cadastrar uma categoria",
+                "tags": ["Categories"],
+                "security": [{"bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Category"
+                            },
+                            "examples": {
+                                "category": {
+                                    "value": {
+                                        "name": "Eletrônicos",
+                                        "description": "Produtos eletrônicos"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Category Already exists!"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/findByName": {
+            "get": {
+                "description": "Busca de uma categoria pelo nome",
+                "summary": "Busca de uma categoria pelo nome",
+                "tags": ["Categories"],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Nome da categoria para busca",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Category"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{id}": {
+            "get": {
+                "description": "Busca de uma categoria pelo ID",
+                "summary": "Busca de uma categoria pelo ID",
+                "tags": ["Categories"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Busca categoria pelo ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Alterar uma categoria pelo ID",
+                "summary": "Alterar uma categoria pelo ID",
+                "tags": ["Categories"],
+                "security": [{"bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nome da categoria pelo ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Category"
+                            },
+                            "examples": {
+                                "category": {
+                                    "value": {
+                                        "name": "Higiene",
+                                        "description": "Sabão Líquido"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Apaga categoria pelo ID",
+                "summary": "Apaga categoria pelo ID",
+                "tags": ["Categories"],
+                "security": [{"bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Busca categoria pelo ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orders": {
+            "post": {
+                "summary": "Cadastro de Pedidos",
+                "description": "Essa rota será responsável por cadastrar um pedido de produto",
+                "tags": ["Orders"],
+                "security": [{"bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Order"
+                            },
+                            "examples": {
+                                "order": {
+                                    "value": {
+                                        "product": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/Product"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Order Already exists!"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Order"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Busca de todos pedidos",
+                "summary": "Busca de todos pedidos",
+                "tags": ["Orders"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Order"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+        },
+        
+        "/orders/{id}": {
+            "get": {
+                "description": "Busca de um pedido pelo ID",
+                "summary": "Busca de um pedido pelo ID",
+                "tags": ["Orders"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Busca pedido pelo ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Order"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Apaga pedido pelo ID",
+                "summary": "Apaga pedido pelo ID",
+                "tags": ["Orders"],
+                "security": [{"bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Busca pedido pelo ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Order"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "category": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/Category"
+                    }
+                }
+            },
+            "Category": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Order": {
+                "type": "object",
+                "properties": {
+                    "product": {
+                        "type":"object",
+                        "$ref": "#/components/schemas/Product"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+        
+    
+}
