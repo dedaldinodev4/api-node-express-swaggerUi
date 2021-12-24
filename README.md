@@ -45,7 +45,7 @@ Start the server
 
 ## Screenshots
 
-![ScreenShot 01](/publc/img1.png)
+![ScreenShot 01](/public/img1.png)
 
 **Testes**
 URL: /v1/api-docs/
